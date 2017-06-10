@@ -1,0 +1,120 @@
+<%@page import="UserSystem.User"%>
+<%@page import="Check.Judge"%>
+<%@ page import="java.sql.*" language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>个人主页</title>
+<style>
+#header {
+    color:white;
+    text-align:center;
+    padding:0px;
+}
+#nav {
+    height:405px;
+    width:200px;
+    float:left;
+    padding:0px;	      
+}
+#section {
+    width:350px;
+    float:left;
+    padding:10px;	 	 
+}
+#footer {
+    color:white;
+    clear:both;
+    text-align:center;
+   padding:0px;	 	 
+}
+</style>
+
+</head>
+<body background="b.jpg">
+
+<%!
+ public void change(){
+	Judge jd = Judge.getJudge();
+	jd.setIsnew(false);
+ }
+%>
+
+<div id="header">
+<form style="margin-left:1000px" action="Login.jsp">
+<input type="submit" value="注销" <%Judge jd = Judge.getJudge();jd.setIslogin(false);%>style="width:60px;height:24px;font-size:14px;border:0px">
+</form>
+<h2>合同管理系统</h2>
+<%
+      User u = User.getUser();
+      out.println(u.getUsername()+"<"+u.getAccount()+">");
+%>
+<input type="submit" id="c" value="消息" style="width:56px;height:24px;font-size:14px;border:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="text" id="search" style="width:250px;height:20px">
+<input type="submit" value="搜索" style="width:60px;height:24px;font-size:14px;border:0px">
+
+</div>
+
+<div id="nav">
+   <dl>
+       <dd style="margin-left:0px">
+           <a href="NewContract.jsp" target="iframe">
+           <input type="submit" onclick="<%change();%>" value="新合同" style="color:white;width:200px;height:30px;font-size:16px;border:0px;background:transparent">
+           </a>
+       </dd>
+       <dd style="margin-left:0px">
+           <a href="AllotContract.jsp" target="iframe">
+           <input type="submit" value="待分配" style="color:white;width:200px;height:30px;font-size:16px;border:0px;background:transparent">
+           </a>
+       </dd>
+       <dd style="margin-left:0px">
+           <a href="FinishedContract.jsp" target="iframe">
+           <input type="submit" value="合同箱" style="color:white;width:200px;height:30px;font-size:16px;border:0px;background:transparent">
+           </a>
+       </dd>
+       <dd style="margin-left:0px">
+           <a href="DraftContract.jsp" target="iframe">
+           <input type="submit" value="草稿箱" style="color:white;width:200px;height:30px;font-size:16px;border:0px;background:transparent">
+           </a>
+       </dd>
+       <dd style="margin-left:0px">
+           <a href="JoinContract.jsp" target="iframe">
+           <input type="submit" value="会签箱" style="color:white;width:200px;height:30px;font-size:16px;border:0px;background:transparent">
+           </a>
+       </dd>
+       <dd style="margin-left:0px">
+           <a href="UnfinishedContract.jsp" target="iframe">
+           <input type="submit" value="定稿箱" style="color:white;width:200px;height:30px;font-size:16px;border:0px;background:transparent">
+           </a>
+       </dd>
+       <dd style="margin-left:0px">
+           <a href="ApproveContract.jsp" target="iframe">
+           <input type="submit" value="审批箱" style="color:white;width:200px;height:30px;font-size:16px;border:0px;background:transparent">
+           </a>
+       </dd>
+       <dd style="margin-left:0px">
+           <a href="SignContract.jsp" target="iframe">
+           <input type="submit" value="签订箱" style="color:white;width:200px;height:30px;font-size:16px;border:0px;background:transparent">
+           </a>
+       </dd>
+       <dd style="margin-left:0px">
+           <a href="ExpiredContract.jsp" target="iframe">
+           <input type="submit" value="过期箱" style="color:white;width:200px;height:30px;font-size:16px;border:0px;background:transparent">
+           </a>
+       </dd>
+   </dl>
+</div>
+
+<div id="section">
+    <iframe name="iframe" frameborder="0" width="1170" height="405" src="Welcome.jsp"></iframe>
+</div>
+
+<div id="footer">
+完善细节，方便生活
+</div>
+  
+</body>
+</html>

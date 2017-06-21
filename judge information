@@ -1,0 +1,122 @@
+public class Judge {
+
+	boolean islogin = false;
+	boolean isregister = false;
+	boolean isnew = false;
+	boolean isallot = false;
+	boolean isdraft = false;
+	boolean isjoin = false;
+	boolean isunfinished = false;
+	boolean isapprove = false;
+	boolean issign = false;
+	boolean isload = false;
+	
+	static Judge judge = null;
+	
+	public static Judge getJudge() {
+		if(judge==null) {
+			judge = new Judge();
+		}
+		return judge;
+	}
+	
+    public boolean getIsload() {
+		
+		return isload;
+	}
+		
+	public void setIsload(boolean isload) {
+			
+		this.isload = isload;
+	}
+	
+    public boolean getIsallot() {
+		
+		return isallot;
+	}
+		
+	public void setIsallot(boolean isallot) {
+			
+		this.isallot = isallot;
+	}
+	
+	public boolean getIssign() {
+		
+		return issign;
+	}
+		
+	public void setIssign(boolean issign) {
+			
+		this.issign = issign;
+	}
+	
+	public boolean getIsapprove() {
+			
+		return isapprove;
+	}
+		
+	public void setIsapprove(boolean isapprove) {
+			
+		this.isapprove = isapprove;
+	}
+	
+    public boolean getIsunfinished() {
+		
+		return isunfinished;
+	}
+	
+    public void setIsunfinished(boolean isunfinished) {
+		
+		this.isunfinished = isunfinished;
+	}
+	
+	public boolean getIslogin() {
+		
+		return islogin;
+	}
+	
+    public void setIslogin(boolean islogin) {
+		
+		this.islogin = islogin;
+	}
+    
+    public boolean getIsregister() {
+		
+		return isregister;
+	}
+	
+    public void setIsregister(boolean isregister) {
+		
+		this.isregister = isregister;
+	}
+    
+    public boolean getIsnew() {
+		
+		return isnew;
+	}
+	
+    public void setIsnew(boolean isnew) {
+		
+		this.isnew = isnew;
+	}
+    
+    public boolean getIsdraft() {
+		
+		return isdraft;
+	}
+	
+    public void setIsdraft(boolean isdraft) {
+		
+		this.isdraft = isdraft;
+	}
+    
+    public boolean getIsjoin() {
+		
+		return isjoin;
+	}
+	
+    public void setIsjoin(boolean isjoin) {
+		
+		this.isjoin = isjoin;
+	}
+}

@@ -1,5 +1,7 @@
 <%@page import="Check.Judge"%>
-<%@ page import="java.sql.*" language="java" contentType="text/html; charset=utf-8"
+<%@page import="UserSystem.User"%>
+<%@page import="UserSystem.Read"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -35,7 +37,7 @@ Judge jd = Judge.getJudge();
 jd.setIsnew(false);jd.setIsallot(false);jd.setIsdraft(false);jd.setIsjoin(false);jd.setIsapprove(false);jd.setIssign(false);jd.setIsunfinished(false);
 %>
 <div id="header">
-<h3 style="margin-left:-150px">待会签合同</h3>
+<h3 style="margin-left:-260px">待会签合同</h3>
 </div>
 
 <form style="margin-left:200px">
@@ -46,16 +48,19 @@ jd.setIsnew(false);jd.setIsallot(false);jd.setIsdraft(false);jd.setIsjoin(false)
 <td>&nbsp;&nbsp;操作&nbsp;&nbsp;</td>
 </tr>
 <%
-String[] app = {"apple","orange","banana"};
-  for(int i=0;i<app.length;i++){	  
+User u = User.getUser();
+Read r = new Read();
+String[] app = Read.shuzu(u.getAccount());
+  for(int i=0;i<app.length;i++){
+	  if(app[i]!=null) {
 %>	  
 <tr>
-<td><input onclick="finished()" type="radio" name ="R" id="<%out.println(i);%>" value="<%out.println(app[i]);%>"><label for="<%out.println(i);%>">北极光项目合同</label></td>
-<td>2017-08-08</td>
+<td><input onclick="finished()" type="radio" name ="R" id="<%out.println(i);%>" value="<%out.println(app[i]);%>"><label for="<%out.println(i);%>"><%=app[i]%></label></td>
+<td><%=r.selectContract(app[i]).getMadename()%></td>
 <td>会签</td>
 </tr>
 <% 
-  }
+  } }
 %>	
 </table>
 </form>

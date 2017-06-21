@@ -1,0 +1,65 @@
+<%@page import="UserSystem.User"%>
+<%@page import="Check.Judge"%>
+<%@ page import="java.sql.*" language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>合同管理系统注册界面</title>
+</head>
+<jsp:useBean id="rc" class="Check.RegisterCheck" scope="page" />
+<jsp:useBean id="w" class="UserSystem.Write" scope="page" />
+<%
+    request.setCharacterEncoding("UTF-8");
+    Judge jd = Judge.getJudge();
+    if(jd.getIsregister()&&rc.Registerjudege((String)request.getParameter("RegisterAccount"),(String)request.getParameter("Username"),(String)request.getParameter("RegisterPassword"),(String)request.getParameter("Telephone"))){
+
+    	jd.setIsregister(false);
+    	User u = User.getUser();
+        u.setAccount((String)request.getParameter("RegisterAccount"));
+        u.setUsername((String)request.getParameter("Username"));
+        u.setPassword((String)request.getParameter("RegisterPassword"));
+        u.setTelephone((String)request.getParameter("Telephone"));
+        w.saveUser(u);
+        
+    	response.sendRedirect("UserCenter.jsp");
+    }
+    else{
+    	if(jd.getIsregister()) {
+            out.print("<script language='javaScript'> alert('注册信息有误！');</script>");
+    	}
+    	jd.setIsregister(true);
+    }    
+%>
+<body>
+    <center>
+        <h1 style="color:black">合同管理系统</h1>
+            <form action="Register.jsp" method="post">
+                               新用户注册：
+            <br> 
+            <br>                  
+                                账号 ：<input type="text" name="RegisterAccount" style="width:250px;height:30px">
+            <br> 
+            <br>                  
+                                姓名 ：<input type="text" name="Username" style="width:250px;height:30px">
+            <br> 
+            <br> 
+                                密码 ：<input type="password" name="RegisterPassword" style="width:250px;height:30px">
+            <br> 
+            <br> 
+                                号码 ：<input type="text" name="Telephone" style="width:250px;height:30px">
+            <br>      
+            <br>   
+            <br> 
+            &nbsp;&nbsp;&nbsp; <input type="submit" value="注册" style="color:#FFFFFF;width:254px;height:40px;font-size:20px;border:0px;background:#1E90FF">
+            <br>    
+            <br>   
+            <br> 
+            </form>
+            <form action="Login.jsp" <%jd.setIslogin(false);%>>
+            &nbsp;&nbsp;&nbsp;已有账号，立即 <input type="submit" value="登录" style="color: green;width:60px;height:25px;font-size:14px">
+            </form>
+    </center>
+</body>
+</html>

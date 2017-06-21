@@ -1,0 +1,84 @@
+<%@page import="UserSystem.Contract"%>
+<%@page import="UserSystem.User"%>
+<%@page import="UserSystem.AllotList"%>
+<%@page import="Check.Judge"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<script language=javascript>
+  function  wait(){
+	  var r = document.getElementsByName("R1");
+      var selectvalue=null;
+      for(var i=0;i<r.length;i++){
+    	  if(r[i].checked==true) {
+              selectvalue=r[i].value;
+              break;
+          }
+      }
+      document.getElementById("Notice").setAttribute("value",selectvalue);
+      document.getElementById("Choice").setAttribute("value","1");
+      document.getElementById("S").click();
+      
+  }
+ </script>
+ <script language=javascript>
+  function  have(){
+	  var r = document.getElementsByName("R2");
+      var selectvalue=null;
+      for(var i=0;i<r.length;i++){
+    	  if(r[i].checked==true) {
+              selectvalue=r[i].value;
+              break;
+          }
+      }
+      document.getElementById("Notice").setAttribute("value",selectvalue);
+      document.getElementById("Choice").setAttribute("value","2");
+      document.getElementById("S").click();
+      
+  }
+ </script>
+<div>
+<div style="float:left">
+<table  border="1" style="color:white;text-align:center">
+<tr>
+<td>待分配人员</td>
+</tr>
+<% 
+Judge jd = Judge.getJudge();
+Contract c = Contract.getContract();
+if(jd.getA()) {
+	%>	
+	<tr><td><input onclick="wait()" type="radio" name ="R1" value="<%=c.getClient()%>" id="<%=c.getClient()%>"><label for="<%=c.getClient()%>"><%=c.getClient()%></label></td></tr>
+	<%	
+}
+%>
+</table>
+</div>
+<div style="float:left;margin-left:150px">
+<table  border="1" style="color:white;text-align:center">
+<tr>
+<td>已分配人员</td>
+</tr>
+<% 
+if(!jd.getA()) {
+	%>	
+	<tr><td><input onclick="wait()" type="radio" name ="R1" value="<%=c.getClient()%>" id="<%=c.getClient()%>"><label for="<%=c.getClient()%>"><%=c.getClient()%></label></td></tr>
+	<%	
+}
+
+%>
+</table>
+</div>
+</div>
+<form action="ForAllot.jsp" method="post"><input id="S" type="submit" style="visibility:hidden">
+<input type="hidden" id="Notice" name="Signal">
+<input type="hidden" id="Choice" name="Choose">
+</form>
+</body>
+</html>

@@ -1,0 +1,228 @@
+package UserSystem;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class Read {
+	
+	User user = User.getUser();
+	Contract contract = Contract.getContract();
+	
+	public User selectUser(String account) {
+		String driver = "com.mysql.jdbc.Driver";
+		String url = "jdbc:mysql://127.0.0.1:3306/contract?useUnicode=true&amp;" +
+			"characterEncoding=utf8&useSSL=true";
+		String user1 = "root";
+		String password1 = "264737";
+		
+		String name = null;
+		try {
+			Class.forName(driver);
+
+			Connection conn = DriverManager.getConnection(url, user1, password1);
+			Statement statement = conn.createStatement();
+			String sql = "select * from userinfo where account = " + account;
+			ResultSet rs = statement.executeQuery(sql); 
+			while(rs.next()){
+				name = rs.getString(1);
+			} 
+			user.setUsername(name);
+			user.setAccount(account);
+			
+		}catch(ClassNotFoundException e) {    
+			e.printStackTrace();   
+			} catch(SQLException e) {   
+			e.printStackTrace();   
+			} catch(Exception e) {   
+			e.printStackTrace();   
+			}
+		return user;
+	}
+	
+	
+	public static String[] shuzu(String account){
+		String driver = "com.mysql.jdbc.Driver";
+		String url = "jdbc:mysql://127.0.0.1:3306/contract?useUnicode=true&amp;" +
+			"characterEncoding=utf8&useSSL=true";
+		String user = "root";
+		String password1 = "264737";
+		
+		String[] con = new String[10];
+		int i =0;
+		
+		try {
+			Class.forName(driver);
+
+			Connection conn = DriverManager.getConnection(url, user, password1);
+			Statement statement = conn.createStatement();
+			String sql = "select * from user_contract where account = " + account;
+			
+			ResultSet rs = statement.executeQuery(sql); 
+			while(rs.next()){
+				con[i] = rs.getString(2);
+				i++;
+			}
+		}catch(ClassNotFoundException e) {    
+			e.printStackTrace();   
+			} catch(SQLException e) {   
+			e.printStackTrace();   
+			} catch(Exception e) {   
+			e.printStackTrace();   
+			}
+		return con;
+		
+	}
+	
+	
+	
+    public User selectUserbyname(String username) {
+		
+		return user;
+	}
+	
+	public Contract selectContract(String title) {
+		String driver = "com.mysql.jdbc.Driver";
+		String url = "jdbc:mysql://127.0.0.1:3306/contract?useUnicode=true&amp;" +
+			"characterEncoding=utf8&useSSL=true";
+		String user = "root";
+		String password1 = "264737";
+		
+		try {
+			Class.forName(driver);
+
+			Connection conn = DriverManager.getConnection(url, user, password1);
+			Statement statement = conn.createStatement();
+			title = title.replaceAll("\r\n", "");
+			String sql = "select * from contractinfo where contract_name = " + "\"" + title+"\"";
+			
+			
+			ResultSet rs = statement.executeQuery(sql); 
+			while(rs.next()){
+				
+				contract.setTitle(rs.getString(2)); 
+				contract.setClient(rs.getString(3));
+				contract.setStartname(rs.getString(6));
+				contract.setEndtime(rs.getString(7));
+				contract.setContent(rs.getString(5));
+				contract.setMadename(rs.getString(4));
+			}
+		}catch(ClassNotFoundException e) {    
+			e.printStackTrace();   
+			} catch(SQLException e) {   
+			e.printStackTrace();   
+			} catch(Exception e) {   
+			e.printStackTrace();   
+			}
+		
+		return contract;
+	}
+	
+	public static boolean isNumeric(String str){
+		  for (int i = 0; i < str.length(); i++){
+		   if (!Character.isDigit(str.charAt(i))){
+		    return false;
+		   }
+		  }
+		  return true;
+	}
+	
+	public static String[] search(String key){
+		String driver = "com.mysql.jdbc.Driver";
+		String url = "jdbc:mysql://127.0.0.1:3306/contract?useUnicode=true&amp;" +
+			"characterEncoding=utf8&useSSL=true";
+		String user = "root";
+		String password1 = "264737";
+		
+		String content[] = new String[10];
+		String sql = null;
+		int i = 0;
+		try { 
+			Class.forName(driver);
+
+			Connection conn = DriverManager.getConnection(url, user, password1);
+			Statement statement = conn.createStatement();
+			if(isNumeric(key) == true){
+				sql ="select * from contractinfo where contract_id like '%" + key + "%'";
+			}
+			else 
+			{
+				sql ="select * from contractinfo where contract_name like '%" + key + "%'";
+			}
+			
+			ResultSet rs = statement.executeQuery(sql); 
+			while(rs.next()){
+				content[i] = rs.getString(2);
+				i++;
+			}
+		}catch(ClassNotFoundException e) {    
+			e.printStackTrace();   
+			} catch(SQLException e) {   
+			e.printStackTrace();   
+			} catch(Exception e) {   
+			e.printStackTrace();   
+			}
+		return content;
+		
+		
+	}
+	public static boolean countersign(String account,String contractname ,String content){
+		String driver = "com.mysql.jdbc.Driver";
+		String url = "jdbc:mysql://127.0.0.1:3306/contract?useUnicode=true&amp;" +
+			"characterEncoding=utf8&useSSL=true";
+		String user = "root";
+		String password1 = "264737";
+		
+		try {
+			Class.forName(driver);
+
+			Connection conn = DriverManager.getConnection(url, user, password1);
+			Statement statement = conn.createStatement();
+			String sql = "insert into countersign(contract_name,account,signcontent) value(" + "\""+contractname +"\""+ ',' + account +',' + "\""+content +"\""+ ")";
+			statement.execute(sql); 
+			String sql1 = "update contractinfo set state = '会签中' where contract_name = " + "\""+contractname +"\"";
+			statement.execute(sql1); 
+		}catch(ClassNotFoundException e) {    
+			e.printStackTrace();   
+			} catch(SQLException e) {   
+			e.printStackTrace();   
+			} catch(Exception e) {   
+			e.printStackTrace();   
+			}
+		return true;
+		
+	}
+	public static String dinggao(String contract_name){
+		String driver = "com.mysql.jdbc.Driver";
+		String url = "jdbc:mysql://127.0.0.1:3306/contract?useUnicode=true&amp;" +
+			"characterEncoding=utf8&useSSL=true";
+		String user = "root";
+		String password1 = "264737";
+		
+		String content = "\n";
+		try { 
+			Class.forName(driver);
+
+			Connection conn = DriverManager.getConnection(url, user, password1);
+			Statement statement = conn.createStatement();
+			
+			String sql ="select * from countersign where contract_name = " + "\"" +contract_name +"\"";
+			ResultSet rs = statement.executeQuery(sql); 
+			while(rs.next()){
+				content = content + rs.getString(3) +":"+ rs.getString(4)+ "\n";
+				
+			}
+		}catch(ClassNotFoundException e) {    
+			e.printStackTrace();   
+			} catch(SQLException e) {   
+			e.printStackTrace();   
+			} catch(Exception e) {   
+			e.printStackTrace();   
+			}
+		return content;
+		
+	}
+	
+}

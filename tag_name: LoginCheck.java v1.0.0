@@ -1,0 +1,40 @@
+package Check;
+
+import java.sql.*;
+
+public class LoginCheck {
+
+	//判断登录信息是否合法，是则true,否则false
+
+		public Boolean Loginjudege(String account,String password){
+			String driver = "com.mysql.jdbc.Driver";
+			String url = "jdbc:mysql://127.0.0.1:3306/contract?useUnicode=true&amp;" +
+					"characterEncoding=utf8&useSSL=true";
+			String user = "root";
+			String password1 = "264737";
+			
+			
+			try {
+				Class.forName(driver);
+				Connection conn = DriverManager.getConnection(url, user, password1);
+				Statement statement = conn.createStatement();
+				String sql ="select count(*) as rowCount from UserInfo where account =" +account +" and password = " + password;
+				
+				ResultSet rs = statement.executeQuery(sql); 
+				rs.next();
+				int rowCount = rs.getInt("rowCount");
+				if (rowCount>0){
+					return true;//账号密码匹配
+				}
+				
+			}catch(ClassNotFoundException e) {    
+				e.printStackTrace();   
+				} catch(SQLException e) {   
+				e.printStackTrace();   
+				} catch(Exception e) {   
+				e.printStackTrace();   
+				}   
+			return false;//账号密码不匹配
+		}
+
+}

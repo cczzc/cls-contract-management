@@ -1,0 +1,97 @@
+<%@page import="UserSystem.Read"%>
+<%@page import="UserSystem.User"%>
+<%@page import="UserSystem.Contract"%>
+<%@page import="Check.Judge"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+<style>
+#header {
+    color:white;
+    text-align:center;
+    padding:0px;
+}
+</style>
+</head>
+<body>
+<jsp:useBean id="fc" class="Check.FormatCheck" scope="page" />
+<jsp:useBean id="w" class="UserSystem.Write" scope="page" />
+<%
+    request.setCharacterEncoding("UTF-8");
+    Judge jd = Judge.getJudge();
+    Contract c = Contract.getContract();
+    Read r = new Read();
+    User u = User.getUser();
+    if(jd.getIssign()&&fc.signCheck((String)request.getParameter("SignOpinion"))){
+
+    	jd.setIssign(false);
+    	c.emptyContract();
+        c.setTitle((String)request.getParameter("SignContractName"));
+        c.addSignopinion((String)request.getParameter("SignOpinion"));
+        u.redunceSigncontract((String)request.getParameter("SignContractName"));
+        User user = null;
+        for(int i=0;i<c.getAllotList().getPeople().length;i++) {
+        	user = new User();
+        	//user = r.selectUserbyname(c.getAllotList().getPeople()[i]);
+        	//user.addFinishedcontract((String)request.getParameter("SignContractName"));
+        }
+        w.saveSign(c);
+    	response.sendRedirect("Commit.jsp");
+    }
+    else{
+    	if(jd.getIssign()) {
+            out.print("<script language='javaScript'> alert('填写内容有误！');</script>");
+    	}
+    	jd.setIssign(true);
+    }    
+%> 
+<div id="header">
+<h3 style="margin-left:-260px">待签订合同</h3>
+</div>
+
+<form style="margin-left:862px" action="SignContract.jsp">
+<input type="submit" value="返回" style="width:60px;height:24px;font-size:14px;border:0px">
+</form>
+<form action="Sign.jsp" method="post">
+<p style="color:white">
+合同名称 ：<input type="text" value="<%=c.getTitle()%>" name="SignContractName" style="width:300px;height:20px" readonly="readonly">
+</p>
+<p style="color:white">
+客户&nbsp;&nbsp; &nbsp;&nbsp;：<input type="text" value="<%=c.getClient()%>" name="SignClinetName" style="width:300px;height:20px" readonly="readonly">
+</p>
+<p style="color:white">
+起始时间 ：<input type="text" value="<%=c.getStartname()%>" name="SignStartTime" style="width:300px;height:20px" readonly="readonly">
+</p>
+<p style="color:white">
+结束时间 ：<input type="text" value="<%=c.getEndtime()%>" name="SignEndTime" style="width:300px;height:20px" readonly="readonly">
+</p>
+<p style="color:white">
+合同内容 ：
+</p>
+<p style="margin-left:87px">
+<textarea id="Textarea" name="SignContractContent" style="width:829px;height:300px;resize:none;outline:none" readonly="readonly"></textarea>
+</p>
+<p style="color:white">
+签订信息 ：
+</p>
+<p style="margin-left:87px">
+<textarea name="SignOpinion" style="width:829px;height:100px;resize:none;outline:none"></textarea>
+</p>
+<input type="submit" value="提交" style="width:60px;height:24px;font-size:14px;border:0px">&nbsp;&nbsp;</form>
+<br>
+<div>
+<div style="float:left"><form action="Welcome.jsp"><input type="submit" value="取消" style="width:60px;height:24px;font-size:14px;border:0px">&nbsp;&nbsp;</form></div>
+</div>
+<form style="margin-left:862px" action="SignContract.jsp">
+<input type="submit" value="返回" style="width:60px;height:24px;font-size:14px;border:0px">
+</form>
+<input type="hidden" id="Area" value="<%=c.getContent()%>"/> 
+<script type="text/javascript">  
+    document.getElementById("Textarea").value=document.getElementById("Area").value;   
+</script> 
+</body>
+</html>

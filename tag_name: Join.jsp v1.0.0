@@ -1,7 +1,8 @@
 <%@page import="UserSystem.User"%>
 <%@page import="UserSystem.Contract"%>
 <%@page import="Check.Judge"%>
-<%@ page import="java.sql.*" language="java" contentType="text/html; charset=utf-8"
+<%@page import="UserSystem.Read"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -28,14 +29,13 @@
 
     	jd.setIsjoin(false);
     	c.emptyContract();
-        c.setTitle((String)request.getParameter("JoinContractName"));
-        c.setClient((String)request.getParameter("JoinClinetName"));
-        c.setStarttime((String)request.getParameter("JoinStartTime"));
-        c.setEndtime((String)request.getParameter("JoinEndTime"));
-        c.setContent((String)request.getParameter("JoinContractContent"));
-        c.addJoinopinion((String)request.getParameter("JoinOpinion"));
-        u.redunceJoincontract((String)request.getParameter("JoinContractName"));
-        w.saveJoin(c);
+        //c.setTitle((String)request.getParameter("JoinContractName"));
+       //c.setStartname((String)request.getParameter("JoinStartTime"));
+        //c.setEndtime((String)request.getParameter("JoinEndTime"));
+        //c.setContent((String)request.getParameter("JoinContractContent"));
+        //c.addJoinopinion((String)request.getParameter("JoinOpinion"));
+        //u.redunceJoincontract((String)request.getParameter("JoinContractName"));
+        Read.countersign(u.getAccount(),c.getTitle(),(String)request.getParameter("JoinOpinion"));
         
     	response.sendRedirect("Commit.jsp");
     }
@@ -47,20 +47,21 @@
     }    
 %> 
 <div id="header">
-<h3 style="margin-left:-150px">待会签合同</h3>
+<h3 style="margin-left:-260px">待会签合同</h3>
 </div>
 
 <form style="margin-left:862px" action="JoinContract.jsp">
 <input type="submit" value="返回" style="width:60px;height:24px;font-size:14px;border:0px">
 </form>
+<form action="Join.jsp" method="post">
 <p style="color:white">
 合同名称 ：<input type="text" value="<%=c.getTitle()%>" name="JoinContractName" style="width:300px;height:20px" readonly="readonly">
 </p>
 <p style="color:white">
-客户 &nbsp;&nbsp;：<input type="text" value="<%=c.getClient()%>" name="JoinClinetName" style="width:300px;height:20px" readonly="readonly">
+客户&nbsp;&nbsp; &nbsp;&nbsp;：<input type="text" value="<%=c.getClient()%>" name="JoinClinetName" style="width:300px;height:20px" readonly="readonly">
 </p>
 <p style="color:white">
-起始时间 ：<input type="text" value="<%=c.getStarttime()%>" name="JoinStartTime" style="width:300px;height:20px" readonly="readonly">
+起始时间 ：<input type="text" value="<%=c.getStartname()%>" name="JoinStartTime" style="width:300px;height:20px" readonly="readonly">
 </p>
 <p style="color:white">
 结束时间 ：<input type="text" value="<%=c.getEndtime()%>" name="JoinEndTime" style="width:300px;height:20px" readonly="readonly">
@@ -77,8 +78,9 @@
 <p style="margin-left:87px">
 <textarea name="JoinOpinion" style="width:829px;height:100px;resize:none;outline:none"></textarea>
 </p>
+<input type="submit" value="提交" style="width:60px;height:24px;font-size:14px;border:0px">&nbsp;&nbsp;</form>
+<br>
 <div>
-<div style="float:left"><form action="Join.jsp" method="post"><input type="submit" value="提交" style="width:60px;height:24px;font-size:14px;border:0px">&nbsp;&nbsp;</form></div>
 <div style="float:left"><form action="Welcome.jsp"><input type="submit" value="取消" style="width:60px;height:24px;font-size:14px;border:0px">&nbsp;&nbsp;</form></div>
 </div>
 <form style="margin-left:862px" action="JoinContract.jsp">

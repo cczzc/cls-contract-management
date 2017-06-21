@@ -1,0 +1,53 @@
+<%@page import="UserSystem.Contract"%>
+<%@page import="UserSystem.User"%>
+<%@page import="Check.Judge"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<%
+    request.setCharacterEncoding("UTF-8");
+    Judge jd = Judge.getJudge();
+    Contract c = Contract.getContract();
+       if(((String)request.getParameter("Choose")).equals("1")){
+    	jd.changeA();
+    	String[] a ={"1","2","1"};
+    	a[2]=((String)request.getParameter("Signal"));
+    	c.getAllotList().setHavejoinpeople(a);
+    	c.getAllotList().addHavejoinpeople((String)request.getParameter("Signal"));
+    	c.getAllotList().reduceWaitjoinpeople((String)request.getParameter("Signal"));
+	response.sendRedirect("WaitJoin.jsp");
+} else if(((String)request.getParameter("Choose")).equals("2")){ 
+	jd.changeA();
+	    c.getAllotList().addWaitjoinpeople((String)request.getParameter("Signal"));
+	    c.getAllotList().reduceHavejoinpeople((String)request.getParameter("Signal"));
+    response.sendRedirect("WaitJoin.jsp");   
+} else if(((String)request.getParameter("Choose")).equals("3")){   
+	jd.changeB();
+	c.getAllotList().addHaveapprovepeople((String)request.getParameter("Signal"));
+	c.getAllotList().reduceWaitapprovepeople((String)request.getParameter("Signal"));
+    response.sendRedirect("WaitApprove.jsp");
+} else if(((String)request.getParameter("Choose")).equals("4")){ 
+	jd.changeB();
+	c.getAllotList().addWaitapprovepeople((String)request.getParameter("Signal"));
+    c.getAllotList().reduceHaveapprovepeople((String)request.getParameter("Signal"));
+    response.sendRedirect("WaitApprove.jsp");
+} else if(((String)request.getParameter("Choose")).equals("5")){
+	jd.changeC();
+	c.getAllotList().addHavesignpeople((String)request.getParameter("Signal"));
+	c.getAllotList().reduceWaitsignpeople((String)request.getParameter("Signal"));
+    response.sendRedirect("WaitSign.jsp");
+} else if(((String)request.getParameter("Choose")).equals("6")){ 
+	jd.changeC();
+	c.getAllotList().addWaitsignpeople((String)request.getParameter("Signal"));
+    c.getAllotList().reduceHavesignpeople((String)request.getParameter("Signal"));
+    response.sendRedirect("WaitSign.jsp");
+}
+%>
+</body>
+</html>

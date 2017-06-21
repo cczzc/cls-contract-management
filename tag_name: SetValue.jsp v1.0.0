@@ -1,0 +1,38 @@
+<%@page import="UserSystem.Read"%>
+<%@page import="UserSystem.Contract"%>
+<%@page import="Check.Judge"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<% 
+    request.setCharacterEncoding("UTF-8");
+    Contract c = Contract.getContract();
+    Read r = new Read();
+    r.selectContract((String)request.getParameter("Signal"));
+   // c.setTitle((String)request.getParameter("Signal"));
+       if(((String)request.getParameter("Choose")).equals("1")){
+    	response.sendRedirect("Draft.jsp");
+} else if(((String)request.getParameter("Choose")).equals("2")){    
+    response.sendRedirect("Allot.jsp");
+} else if(((String)request.getParameter("Choose")).equals("3")){    
+    response.sendRedirect("Join.jsp");
+} else if(((String)request.getParameter("Choose")).equals("4")){    
+    response.sendRedirect("Unfinished.jsp");
+} else if(((String)request.getParameter("Choose")).equals("5")){    
+    response.sendRedirect("Approve.jsp");
+} else if(((String)request.getParameter("Choose")).equals("6")){    
+    response.sendRedirect("Sign.jsp");
+} else if(((String)request.getParameter("Choose")).equals("7")){    
+    response.sendRedirect("Finished.jsp");
+} else if(((String)request.getParameter("Choose")).equals("8")) {
+	response.sendRedirect("Expired.jsp");
+}
+%>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<%@page import="Check.Judge"%>
+<%@page import="UserSystem.User"%>
+<%@page import="UserSystem.Read"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+<style>
+#header {
+    color:white;
+    text-align:center;
+    padding:0px;
+}
+</style>
+</head>
+<body>
+<script language=javascript>
+  function  finished(){
+	  var r = document.getElementsByName("R");
+      var selectvalue=null;
+      for(var i=0;i<r.length;i++){
+    	  if(r[i].checked==true) {
+              selectvalue=r[i].value;
+              break;
+          }
+      }
+      document.getElementById("Notice").setAttribute("value",selectvalue);
+      document.getElementById("S").click();
+      
+  }
+ </script>
+<% 
+Judge jd = Judge.getJudge();
+jd.setIsnew(false);jd.setIsallot(false);jd.setIsdraft(false);jd.setIsjoin(false);jd.setIsapprove(false);jd.setIssign(false);jd.setIsunfinished(false);
+%>
+<div id="header">
+<h3 style="margin-left:-260px">查找内容</h3>
+</div>
+<table border="1"style="color:white;text-align:center;margin-left:200px">
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;合同名称&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td>&nbsp;起始时间&nbsp;</td>
+<td>&nbsp;结束时间&nbsp;</td>
+</tr>
+<%
+request.setCharacterEncoding("UTF-8");
+User u = User.getUser();
+Read r = new Read();
+String[] app = Read.search((String)request.getParameter("search"));
+  for(int i=0;i<app.length;i++){	  
+	  if(app[i]!=null) {
+%>	  
+<tr>
+<td><input onclick="finished()" type="radio" name ="R" id="<%out.println(i);%>" value="<%out.println(app[i]);%>"><label for="<%out.println(i);%>"><%=app[i]%></label></td>
+<td><%=r.selectContract(app[i]).getStartname()%></td>
+<td><%=r.selectContract(app[i]).getEndtime()%></td>
+</tr>
+<% 
+  } }
+%>	
+</table>
+<form action="SetValue.jsp" method="post"><input id="S" type="submit" style="visibility:hidden">
+<input type="hidden" id="Notice" name="Signal">
+<input type="hidden" id="Choice" value="7" name="Choose">
+</form>
+</body>
+</html>

@@ -1,0 +1,233 @@
+package UserSystem;
+
+public class User {
+	
+	String account;
+	String username;
+	String password;
+	String telephone;
+	
+	private static User  user = null;
+	
+	String[] draftcontract;
+	String[] allotcontract;
+	String[] finishedcontract;
+	String[] joincontract;
+	String[] unfinishedcontract;
+	String[] approvecontract;
+	String[] signcontract;
+	String[] expiredcontract;
+	
+	String[] message;
+	
+	public static User getUser() {
+		if(user==null) {
+			user = new User();
+		}
+		return user;
+	}
+	
+    public String[] getMessage() {
+		
+	    return message;
+	}
+	
+    public void setMessage(String[] message) {
+		
+	    this.message = message;
+	}
+    
+    public void addMessage(String message) {
+		
+
+	}
+    
+    public void emptyMessage() {
+		
+
+	}
+	
+	public String getAccount() {
+		
+	    return account;
+	}
+	
+    public String getUsername() {
+		
+	    return username;
+	}
+    
+    public String getPassword() {
+		
+	    return password;
+	}
+    
+    public String getTelephone() {
+		
+	    return telephone;
+	}
+    
+    public void setAccount(String account) {
+		
+	    this.account = account;
+	}
+    
+    public void setUsername(String username) {
+		
+	    this.username = username;
+	}
+    
+    public void setPassword(String password) {
+		
+	    this.password = password;
+	}
+    
+    public void setTelephone(String telephone) {
+		
+	    this.telephone = telephone;
+	}
+    
+    public String[] getExpiredcontract() {
+ 		
+	    return expiredcontract;
+	}
+	
+    public void setExpiredcontract(String[] expiredcontract) {
+		
+	    this.expiredcontract = expiredcontract;
+	}
+	
+    public String[] getSigncontract() {
+ 		
+	    return signcontract;
+	}
+	
+    public void setSigncontract(String[] signcontract) {
+		
+	    this.signcontract = signcontract;
+	}
+	
+    public String[] getApprovecontract() {
+ 		
+	    return approvecontract;
+	}
+	
+    public void setApprovecontract(String[] approvecontract) {
+		
+	    this.approvecontract = approvecontract;
+	}
+	
+    public String[] getUnfinishedcontract() {
+ 		
+	    return unfinishedcontract;
+	}
+	
+    public void setUnfinishedcontract(String[] unfinishedcontract) {
+		
+	    this.unfinishedcontract = unfinishedcontract;
+	}
+	
+    public String[] getJoincontract() {
+ 		
+	    return joincontract;
+	}
+	
+    public void setJoincontract(String[] joincontract) {
+		
+	    this.joincontract = joincontract;
+	}
+	
+    public String[] getFinishedcontract() {
+ 		
+	    return finishedcontract;
+	}
+	
+    public void setFinishedcontract(String[] finishedcontract) {
+		
+	    this.finishedcontract = finishedcontract;
+	}
+	
+    public String[] getAllotcontract() {
+ 		
+	    return allotcontract;
+	}
+	
+    public void setAllotcontract(String[] allotcontract) {
+		
+	    this.allotcontract = allotcontract;
+	}
+	
+    public String[] getDraftcontract() {
+		
+	    return draftcontract;
+	}
+	
+    public void setDraftcontract(String[] draftcontract) {
+		
+	    this.draftcontract = draftcontract;
+	}
+    
+    public void redunceDraftcontract(String title){
+		
+	}
+	
+    public void redunceAllotcontract(String title){
+		
+	}
+    
+    public void redunceFinishedcontract(String title){
+		
+	}
+	
+    public void redunceJoincontract(String title){
+		
+	}
+    
+    public void redunceUnfinishedcontract(String title){
+		
+	}
+    
+    public void redunceApprovecontract(String title){
+		
+	}
+    
+    public void redunceExpiredcontract(String title){
+		
+	}
+    
+    public void redunceSigncontract(String title){
+		
+	}
+	
+	public void addDraftcontract(String title){
+		
+	}
+	
+    public void addAllotcontract(String title){
+		
+	}
+    
+    public void addFinishedcontract(String title){
+		
+	}
+	
+    public void addJoincontract(String title){
+		
+	}
+    
+    public void addUnfinishedcontract(String title){
+		
+	}
+    
+    public void addApprovecontract(String title){
+		
+	}
+    
+    public void addExpiredcontract(String title){
+		
+	}
+    
+    public void addSigncontract(String title){
+		
+	}
+}

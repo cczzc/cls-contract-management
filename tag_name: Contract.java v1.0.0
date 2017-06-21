@@ -1,0 +1,115 @@
+package UserSystem;
+
+public class Contract {
+  
+	String title;
+	String client;
+	String madename;
+	String startname;
+	String endtime;
+	String content;
+	String joinopinion;
+	String approveopinion;
+	String signopinion;
+	boolean approved = false;
+	
+	static Contract contract = null;
+	
+	AllotList allotList = new AllotList();
+	  
+	public AllotList getAllotList(){
+
+		return allotList;
+	}
+	
+	public static Contract getContract() {
+		if(contract==null) {
+			contract = new Contract();
+		}
+		return contract;
+	}
+	
+	public void emptyContract() {
+		
+	}
+	
+	public boolean getApproved() {
+		return approved;
+	}
+	
+	public void setApproved(boolean approved) {
+		this.approved = approved;
+	}
+	
+	public String getTitle() {
+		return title;
+	}
+	
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	public String getClient() {
+		return client;
+	}
+	
+	public void setClient(String client) {
+		this.client = client;
+	}
+	
+	public String getMadename() {
+		return madename;
+	}
+	
+	public void setMadename(String madename) {
+		this.madename = madename;
+	}
+	
+	public String getStartname() {
+		return startname;
+	}
+	
+	public void setStartname(String startname) {
+		this.startname = startname;
+	}
+	
+	public String getEndtime() {
+		return endtime;
+	}
+	
+	public void setEndtime(String endtime) {
+		this.endtime = endtime;
+	}
+	
+	public String getContent() {
+		return content;
+	}
+	
+	public void setContent(String content) {
+		this.content = content;
+	}
+	
+	public String getJoinopinion() {
+		return joinopinion;
+	}
+	
+	public void addJoinopinion(String joinopinion) {
+		this.joinopinion = this.joinopinion + "\n" +joinopinion;
+	}
+	
+	public String getApproveopinion() {
+		return approveopinion;
+	}
+	
+	public void setApproveopinion(String approveopinion) {
+		this.approveopinion = approveopinion;
+	}
+	
+	public String getSignopinion() {
+		return approveopinion;
+	}
+	
+	public void addSignopinion(String signopinion) {
+		this.signopinion = this.signopinion + "\n" +signopinion;
+	}
+}

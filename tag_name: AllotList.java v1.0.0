@@ -1,0 +1,116 @@
+package UserSystem;
+
+public class AllotList {
+	
+	String[] people;
+	String[] waitjoinpeople;
+	String[] waitapprovepeople;
+	String[] waitsignpeople;
+	String[] havejoinpeople;
+	String[] haveapprovepeople;
+	String[] havesignpeople;
+	
+	public String[] getPeople() {
+		return people;
+	}
+	
+	public void setPeople(String[] people) {
+		this.people = people;
+	}
+	
+	public String[] getWaitjoinpeople() {
+		return waitjoinpeople;
+	}
+	
+	public void setWaitjoinpeople(String[] waitjoinpeople) {
+		this.waitjoinpeople = waitjoinpeople; 
+	}
+	
+	public String[] getWaitapprovepeople() {
+		return waitapprovepeople;
+	}
+	
+	public void setWaitapprovepeople(String[] waitapprovepeople) {
+		this.waitapprovepeople = waitapprovepeople; 
+	}
+	
+	public String[] getWaitsignpeople() {
+		return waitsignpeople;
+	}
+	
+	public void setWaitsignpeople(String[] waitsignpeople) {
+		this.waitsignpeople = waitsignpeople; 
+	}
+	
+	public String[] getHavejoinpeople() {
+		return havejoinpeople;
+	}
+	
+	public void setHavejoinpeople(String[] havejoinpeople) {
+		this.havejoinpeople = havejoinpeople; 
+	}
+	
+	public String[] getHaveapprovepeople() {
+		return haveapprovepeople;
+	}
+	
+	public void setHaveapprovepeople(String[] haveapprovepeople) {
+		this.haveapprovepeople = haveapprovepeople; 
+	}
+	
+	public String[] getHavesignpeople() {
+		return havesignpeople;
+	}
+	
+	public void setHavesignpeople(String[] havesignpeople) {
+		this.havesignpeople = havesignpeople; 
+	}
+	
+	public void addWaitjoinpeople(String people) {
+
+	}
+	
+	public void reduceWaitjoinpeople(String people) {
+
+	}
+	
+	public void addWaitapprovepeople(String people) {
+
+	}
+	
+	public void reduceWaitapprovepeople(String people) {
+
+	}
+	
+	public void addWaitsignpeople(String people) {
+
+	}
+	
+	public void reduceWaitsignpeople(String people) {
+
+	}
+	
+	public void addHavejoinpeople(String people) {
+
+	}
+	
+	public void reduceHavejoinpeople(String people) {
+
+	}
+	
+	public void addHaveapprovepeople(String people) {
+
+	}
+	
+	public void reduceHaveapprovepeople(String people) {
+
+	}
+	
+	public void addHavesignpeople(String people) {
+
+	}
+	
+	public void reduceHavesignpeople(String people) {
+
+	}
+}

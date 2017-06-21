@@ -1,0 +1,67 @@
+package Check;
+
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Connection;
+
+
+
+
+public class RegisterCheck {
+
+	
+	//判断注册信息是否合法，是则true,否则false
+		
+		public   boolean isNumeric(String str){
+			  for (int i = 0; i < str.length(); i++){
+			   if (!Character.isDigit(str.charAt(i))){
+			    return false;
+			   }
+			  }
+			  return true;
+		}
+
+		public  boolean Registerjudege(String account,String name, String password,String number){
+			String driver = "com.mysql.jdbc.Driver";
+			String url = "jdbc:mysql://127.0.0.1:3306/contract?useUnicode=true&amp;" +
+					"characterEncoding=utf8&useSSL=true";
+			String user = "root";
+			String password1 = "264737";
+			
+			if (name==null || name.length()<=0){
+				return false;//姓名为空
+				
+			}
+			else if(account==null || account.length()<6){
+				return false;//账号太短
+			}
+			else if(password==null || password.length()<6){
+				return false;//密码太短
+			}
+			else if(number==null || isNumeric(number)==false || number.length()!=11){
+				return false;//手机号格式不正确
+			}
+			else{
+				try {
+					Class.forName(driver);
+
+					Connection conn = DriverManager.getConnection(url, user, password1);
+					Statement statement = conn.createStatement();
+					String sql = "insert into userinfo(name,account,password,number) value(" + "\""+name + "\""+ ','+ "\""+account +"\""+',' + "\""+password +"\""+',' + number+ ")";
+					statement.execute(sql); 
+					
+				}catch(ClassNotFoundException e) {    
+					e.printStackTrace();   
+					} catch(SQLException e) {   
+					e.printStackTrace();   
+					} catch(Exception e) {   
+					e.printStackTrace();   
+					}   
+		}
+			return true;//注册成功	
+	}
+		
+		
+
+}

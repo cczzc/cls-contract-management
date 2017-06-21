@@ -1,0 +1,97 @@
+<%@page import="UserSystem.User"%>
+<%@page import="UserSystem.Contract"%>
+<%@page import="Check.Judge"%>
+<%@ page import="java.sql.*" language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+<style>
+#header {
+    color:white;
+    text-align:center;
+    padding:0px;
+}
+</style>
+</head>
+<body>
+<jsp:useBean id="fc" class="Check.FormatCheck" scope="page" />
+<jsp:useBean id="w" class="UserSystem.Write" scope="page" />
+<%
+    request.setCharacterEncoding("UTF-8");
+    Judge jd = Judge.getJudge();
+    Contract c = Contract.getContract();
+    User u = User.getUser();
+    if(jd.getIsapprove()&&fc.approveCheck((String)request.getParameter("ApproveOpinion"))){
+
+    	jd.setIsapprove(false);
+    	c.emptyContract();
+        c.setTitle((String)request.getParameter("ApproveContractName"));
+        u.redunceApprovecontract((String)request.getParameter("ApproveContractName"));
+        if(((String)request.getParameter("sex"))=="通过") {
+        	c.setApproved(true);
+            w.saveApprove(c);
+        } else {
+        	c.setApproved(false);
+        	w.saveExpired(c);
+        }
+        
+    	response.sendRedirect("Commit.jsp");
+    }
+    else{
+    	if(jd.getIsapprove()) {
+            out.print("<script language='javaScript'> alert('填写内容有误！');</script>");
+    	}
+    	jd.setIsapprove(true);
+    }    
+%> 
+<div id="header">
+<h3 style="margin-left:-150px">待审批合同</h3>
+</div>
+
+<form style="margin-left:862px" action="ApproveContract.jsp">
+<input type="submit" value="返回" style="width:60px;height:24px;font-size:14px;border:0px">
+</form>
+<p style="color:white">
+合同名称 ：<input type="text" value="<%=c.getTitle()%>" name="ApproveContractName" style="width:300px;height:20px" readonly="readonly">
+</p>
+<p style="color:white">
+客户 &nbsp;&nbsp;：<input type="text" value="<%=c.getClient()%>" name="ApproveClinetName" style="width:300px;height:20px" readonly="readonly">
+</p>
+<p style="color:white">
+起始时间 ：<input type="text" value="<%=c.getStarttime()%>" name="ApproveStartTime" style="width:300px;height:20px" readonly="readonly">
+</p>
+<p style="color:white">
+结束时间 ：<input type="text" value="<%=c.getEndtime()%>" name="ApproveEndTime" style="width:300px;height:20px" readonly="readonly">
+</p>
+<p style="color:white">
+合同内容 ：
+</p>
+<p style="margin-left:87px">
+<textarea id="Textarea" name="ApproveContractContent" style="width:829px;height:300px;resize:none;outline:none" readonly="readonly"></textarea>
+</p>
+<p style="color:white;margin-left:-5px">
+    <input type="radio" name="sex" value="通过">通过
+    <input type="radio" name="sex" value="拒绝">拒绝
+</p>
+<p style="color:white">
+审批意见 ：
+</p>
+<p style="margin-left:87px">
+<textarea name="ApproveOpinion" style="width:829px;height:100px;resize:none;outline:none"></textarea>
+</p>
+<div>
+<div style="float:left"><form action="Approve.jsp" method="post"><input type="submit" value="提交" style="width:60px;height:24px;font-size:14px;border:0px">&nbsp;&nbsp;</form></div>
+<div style="float:left"><form action="Welcome.jsp"><input type="submit" value="取消" style="width:60px;height:24px;font-size:14px;border:0px">&nbsp;&nbsp;</form></div>
+</div>
+<form style="margin-left:862px" action="ApproveContract.jsp">
+<input type="submit" value="返回" style="width:60px;height:24px;font-size:14px;border:0px">
+</form>
+<input type="hidden" id="Area" value="<%=c.getContent()%>"/> 
+<script type="text/javascript">  
+    document.getElementById("Textarea").value=document.getElementById("Area").value;   
+</script>  
+</body>
+</html>

@@ -1,0 +1,119 @@
+package UserSystem;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class Write {
+
+	User u = User.getUser();
+    public void saveUser(User u) {
+		
+	}
+	
+	public void saveDraft(Contract c) {
+		
+	}
+	
+    public void saveNew(Contract c) {
+    	String driver = "com.mysql.jdbc.Driver";
+		String url = "jdbc:mysql://127.0.0.1:3306/contract?useUnicode=true&amp;" +
+			"characterEncoding=utf8&useSSL=true";
+		String user = "root";
+		String password1 = "264737";
+		
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		String time = sdf.format(date);
+		
+		try {
+			Class.forName(driver);
+
+			Connection conn = DriverManager.getConnection(url, user, password1);
+			Statement statement = conn.createStatement();
+			String sql = "insert into contractinfo(contract_name,account,time,content,begintime,endtime,state) value(" +"\"" +c.getTitle() +"\""+ ',' +"\""+ c.getClient()+"\"" +','+"\"" + time+"\"" +','+"\"" + c.getContent()+"\""+ ','+"\""+c.getStartname()+"\"" + ',' +"\""+ c.getEndtime() +"\""+",'待会签')";
+			statement.execute(sql); 
+			String sql1 = "insert into user_contract(account,coutract_name) value(" +"\""+ u.getAccount() +"\""+ ','+"\"" + c.getTitle() +"\""+ ")";
+			statement.execute(sql1);
+			
+		}catch(ClassNotFoundException e) {    
+			e.printStackTrace();   
+			} catch(SQLException e) {   
+			e.printStackTrace();   
+			} catch(Exception e) {   
+			e.printStackTrace();   
+			}
+		  //起草合同成功
+	}
+    
+    public void saveAllot(Contract c) {
+		
+	}
+    
+    public void saveJoin(Contract c) {
+		
+	}
+    
+    public void saveUnfinished(Contract c) {
+		
+	}
+    
+    public void saveApprove(Contract c) {
+    	String driver = "com.mysql.jdbc.Driver";
+		String url = "jdbc:mysql://127.0.0.1:3306/contract?useUnicode=true&amp;" +
+			"characterEncoding=utf8&useSSL=true";
+		String user = "root";
+		String password1 = "264737";
+		
+		try {
+			Class.forName(driver);
+
+			Connection conn = DriverManager.getConnection(url, user, password1);
+			Statement statement = conn.createStatement();
+			String sql = "insert into examineview value (" + "\"" + u.getAccount() + "\"" + ',' + "\"" + c.getTitle() + "\"" + ',' + "\"" + c.getApproveopinion() + "\"" + ")";
+			statement.execute(sql); 
+			
+			
+		}catch(ClassNotFoundException e) {    
+			e.printStackTrace();   
+			} catch(SQLException e) {   
+			e.printStackTrace();   
+			} catch(Exception e) {   
+			e.printStackTrace();   
+			}
+	}
+    
+    public void saveSign(Contract c) {
+    	String driver = "com.mysql.jdbc.Driver";
+		String url = "jdbc:mysql://127.0.0.1:3306/contract?useUnicode=true&amp;" +
+			"characterEncoding=utf8&useSSL=true";
+		String user = "root";
+		String password1 = "264737";
+		
+		
+		try {
+			Class.forName(driver);
+
+			Connection conn = DriverManager.getConnection(url, user, password1);
+			Statement statement = conn.createStatement();
+			String sql = "update contractinfo set content = " +"\"" + c.getContent()+ "\""+"where contract_name = "+"\""+ c.getTitle()+"\"";
+			statement.execute(sql); 
+			
+			
+		}catch(ClassNotFoundException e) {    
+			e.printStackTrace();   
+			} catch(SQLException e) {   
+			e.printStackTrace();   
+			} catch(Exception e) {   
+			e.printStackTrace();   
+			}
+		 
+	}
+    
+    public void saveExpired(Contract c) {
+		
+	}
+}
